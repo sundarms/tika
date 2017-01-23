@@ -17,7 +17,7 @@
 -->
 <properties>
     <parsers>
-        <parser class="org.apache.tika.parser.pdf.PDFParser">
+        <parser class="org.apache.tika.parser.pdf.PDFPureJavaParser">
             <params>
                 <param name="sortByPosition" type="bool">true</param>
                 <param name="ocrImageType" type="string">rgb</param>

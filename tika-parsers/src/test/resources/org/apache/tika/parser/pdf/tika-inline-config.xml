@@ -4,7 +4,7 @@
         <parser class="org.apache.tika.parser.DefaultParser">
             <parser-exclude class="org.apache.tika.parser.ocr.TesseractOCRParser"/>
         </parser>
-        <parser class="org.apache.tika.parser.pdf.PDFParser">
+        <parser class="org.apache.tika.parser.pdf.PDFPureJavaParser">
             <params>
                 <param name="extractInlineImages" type="bool">true</param>
                 <param name="allowExtractionForAccessibility" type="bool">true</param>

@@ -214,6 +214,27 @@ public class PDFPureJavaParserConfig implements Serializable {
             accessChecker = new AccessChecker(allowExtractionForAccessibility);
         }
     }
+    
+    /**
+     * Configures the given pdf2XHTML.
+     *
+     * @param pdf2XHTML
+     */
+    public void configure(PDF2XHTMLPureJava pdf2XHTML) {
+        pdf2XHTML.setSortByPosition(getSortByPosition());
+        if (getEnableAutoSpace()) {
+            pdf2XHTML.setWordSeparator(" ");
+        } else {
+            pdf2XHTML.setWordSeparator("");
+        }
+        if (getAverageCharTolerance() != null) {
+            pdf2XHTML.setAverageCharTolerance(getAverageCharTolerance());
+        }
+        if (getSpacingTolerance() != null) {
+            pdf2XHTML.setSpacingTolerance(getSpacingTolerance());
+        }
+        pdf2XHTML.setSuppressDuplicateOverlappingText(getSuppressDuplicateOverlappingText());
+    }
 
     /**
      * @see #setExtractAcroFormContent(boolean)

@@ -32,13 +32,13 @@ public class ServiceLoaderUtilsTest extends TikaTest {
         //which means that they'll overwrite Tika parsers and
         //be preferred.
         DefaultParser defaultParser = new DefaultParser();
-        int vorbisIndex = -1;
+        int rtfIndex = -1;
         int fictIndex = -1;
         int dcxmlIndex = -1;
         int i = 0;
         for (Parser p : defaultParser.getAllComponentParsers()) {
-            if ("class org.gagravarr.tika.VorbisParser".equals(p.getClass().toString())) {
-                vorbisIndex = i;
+            if ("class org.apache.tika.parser.rtf.RTFParser".equals(p.getClass().toString())) {
+                rtfIndex = i;
             }
             if ("class org.apache.tika.parser.xml.FictionBookParser".equals(p.getClass().toString())) {
                 fictIndex = i;
@@ -49,9 +49,9 @@ public class ServiceLoaderUtilsTest extends TikaTest {
             i++;
         }
 
-        assertNotEquals(vorbisIndex, fictIndex);
+        assertNotEquals(rtfIndex, fictIndex);
         assertNotEquals(fictIndex, dcxmlIndex);
-        assertTrue(vorbisIndex > fictIndex);
+        assertTrue(rtfIndex < fictIndex);
         assertTrue(fictIndex > dcxmlIndex);
     }
 }

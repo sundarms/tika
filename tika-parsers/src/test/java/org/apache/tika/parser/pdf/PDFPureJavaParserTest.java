@@ -1226,7 +1226,7 @@ public class PDFPureJavaParserTest extends TikaTest {
             assertContains("pdf_haystack", xmlResult.xml);
             assertContains("Haystack", xmlResult.xml);
             assertContains("Needle", xmlResult.xml);
-            if (! strategy.equals(PDFPureJavaParserConfig.OCR_STRATEGY.NO_OCR)) {
+            if (! strategy.equals(PDFPureJavaParserConfig.OCR_STRATEGY.OCR_ONLY)) {
                 // Tesseract may see the t in haystack as a ! some times...
                 String div = "<div class=\"ocr\">pdf_hays";
                 if (xmlResult.xml.contains(div+"!ack")) {
@@ -1260,7 +1260,7 @@ public class PDFPureJavaParserTest extends TikaTest {
 
     private boolean canRunOCR() {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Test
@@ -1286,7 +1286,7 @@ public class PDFPureJavaParserTest extends TikaTest {
         Map<MediaType, Parser> parsers = p.getParsers();
         Parser composite = parsers.get(MediaType.application("pdf"));
         Parser pdfParser = ((CompositeParser)composite).getParsers().get(MediaType.application("pdf"));
-        assertEquals("org.apache.tika.parser.pdf.PDFParser", pdfParser.getClass().getName());
+        assertEquals("org.apache.tika.parser.pdf.PDFPureJavaParser", pdfParser.getClass().getName());
         assertEquals(PDFPureJavaParserConfig.OCR_STRATEGY.OCR_ONLY, ((PDFPureJavaParser)pdfParser).getPDFParserConfig().getOcrStrategy());
         assertEquals(ImageType.RGB, ((PDFPureJavaParser)pdfParser).getPDFParserConfig().getOcrImageType());
 
