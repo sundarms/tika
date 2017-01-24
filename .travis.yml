@@ -17,7 +17,7 @@ install:
 - mvn install -pl tika-core -am -Dgpg.skip=true
 - mvn install -pl tika-parsers -am -Dgpg.skip=true
 before_script: 
-- "./cd/do-nothing.sh"
+script: "./cd/do-nothing.sh"
 cache:
   directories:
   - "~/.m2/repository"
