@@ -20,7 +20,7 @@
   <parent>
     <groupId>com.github.lafa.tikaNoExternal</groupId>
     <artifactId>tika-parent</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <relativePath>../tika-parent/pom.xml</relativePath>
   </parent>
 
