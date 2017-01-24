@@ -18,7 +18,6 @@ install:
 - mvn install -pl tika-core -am -Dgpg.skip=true
 - mvn install -pl tika-parsers -am -Dgpg.skip=true
 before_script: 
-script: mvn test -P !build-extras -B
 cache:
   directories:
   - "~/.m2/repository"
@@ -26,6 +25,5 @@ after_success:
 - "./cd/before-deploy.sh"
 - "./cd/deploy.sh"
 after_failure:
-- cat com.github.lafa.tikaNoExternal/target/surefire-reports/*.txt
-- cat com.github.lafa.tikaNoExternal/tika-core/target/surefire-reports/*.txt
-- cat com.github.lafa.tikaNoExternal/tika-parsers/target/surefire-reports/*.txt
+- cat com.github.lafa.logfast/target/surefire-reports/*.txt
+- cat com.github.lafa.logfast/core/target/surefire-reports/*.txt
