@@ -140,6 +140,14 @@ public class PDFPureJavaParser extends AbstractParser {
             if (handler != null) {
                 if (shouldHandleXFAOnly(pdfDocument, localConfig)) {
                     handleXFAOnly(pdfDocument, handler, metadata, context);
+                } else if (localConfig.getOcrStrategy().equals(PDFPureJavaParserConfig.OCR_STRATEGY.OCR_ONLY)) {
+                	metadata.add("X-Parsed-By", "org.apache.tika.parser.ocr.TesseractOCRParser");
+                    // No-ops. Do not support OCR parser.
+                } else {
+                    if (localConfig.getOcrStrategy().equals(PDFPureJavaParserConfig.OCR_STRATEGY.OCR_AND_TEXT_EXTRACTION)) {
+                        metadata.add("X-Parsed-By", "org.apache.tika.parser.ocr.TesseractOCRParser");
+                    }
+                    PDF2XHTMLPureJava.process(pdfDocument, handler, context, metadata, localConfig);
                 }
             }
         } catch (InvalidPasswordException e) {
