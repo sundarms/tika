@@ -12,12 +12,10 @@ env:
 
 jdk:
 - oraclejdk8
-before_install: 
 install:
 - mvn clean install -Dgpg.skip=true -DskipTests=true -P !build-extras -B -V
 - mvn install -pl tika-core -am -Dgpg.skip=true
 - mvn install -pl tika-parsers -am -Dgpg.skip=true
-before_script: 
 cache:
   directories:
   - "~/.m2/repository"
