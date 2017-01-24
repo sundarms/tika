@@ -25,7 +25,7 @@ import org.apache.tika.parser.DefaultParser;
 import org.apache.tika.parser.Parser;
 import org.junit.Test;
 
-public class ServiceLoaderUtilsTest extends TikaTest {
+public class ServiceLoaderUtilsNoVorbisTest extends TikaTest {
     @Test
     public void testOrdering() throws Exception {
         //make sure that non Tika parsers come last
