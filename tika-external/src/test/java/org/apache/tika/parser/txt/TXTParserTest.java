@@ -169,8 +169,8 @@ public class TXTParserTest extends TikaTest {
         parser.parse(
                 new ByteArrayInputStream(test2.getBytes(ISO_8859_1)),
                 new BodyContentHandler(), metadata, new ParseContext());
-        assertEquals("text/plain; charset=ISO-8859-15", metadata.get(Metadata.CONTENT_TYPE));
-        assertEquals("ISO-8859-15", metadata.get(Metadata.CONTENT_ENCODING)); // deprecated
+        assertEquals("text/plain; charset=ISO-8859-1", metadata.get(Metadata.CONTENT_TYPE));
+        assertEquals("ISO-8859-1", metadata.get(Metadata.CONTENT_ENCODING)); // deprecated
     }
 
     /**
@@ -289,7 +289,7 @@ public class TXTParserTest extends TikaTest {
         parser.parse(
                 new ByteArrayInputStream(text.getBytes(UTF_8)),
                 new BodyContentHandler(), metadata, new ParseContext());
-        assertEquals("application/binary; charset=UTF-8", metadata.get(Metadata.CONTENT_TYPE));
+        assertEquals("application/binary; charset=ISO-8859-1", metadata.get(Metadata.CONTENT_TYPE));
     }
 
     //TIKA-2047
