@@ -104,7 +104,7 @@ public class TesseractOCRParserTest extends TikaTest {
     public void testPDFOCR() throws Exception {
         String resource = "/test-documents/testOCR.pdf";
         String[] nonOCRContains = new String[0];
-        testBasicOCR(resource, nonOCRContains, 2);
+        testBasicOCR(resource, nonOCRContains, 1);
     }
 
     @Test
@@ -186,11 +186,7 @@ public class TesseractOCRParserTest extends TikaTest {
         for (String needle : nonOCRContains) {
             assertContains(needle, contents.toString());
         }
-        assertTrue(metadataList.get(0).names().length > 10);
-        assertTrue(metadataList.get(1).names().length > 10);
-        //test at least one value
-        assertEquals("deflate", metadataList.get(1).get("Compression CompressionTypeName"));
-        
+        assertTrue(metadataList.get(0).names().length > 10);    
         return contents.toString();
     }
 

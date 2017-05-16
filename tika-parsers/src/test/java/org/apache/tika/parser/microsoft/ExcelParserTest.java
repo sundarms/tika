@@ -299,7 +299,7 @@ public class ExcelParserTest extends TikaTest {
             parser.parse(input, handler, m, context);
 
             String content = handler.toString();
-            assertEquals("", content);
+            assertContains("sample comments", content);
         }
     }
 

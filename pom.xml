@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.github.lafa.tikaNoExternal</groupId>
     <artifactId>tika-parent</artifactId>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <relativePath>tika-parent/pom.xml</relativePath>
   </parent>
 
@@ -39,8 +39,6 @@
     <module>tika-serialization</module>
     <module>tika-batch</module>
     <module>tika-app</module>
-    <module>tika-bundle</module>
-    <module>tika-server</module>
     <module>tika-translate</module>
     <module>tika-langdetect</module>
     <module>tika-example</module>

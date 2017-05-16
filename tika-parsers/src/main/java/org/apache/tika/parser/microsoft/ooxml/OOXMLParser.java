@@ -43,7 +43,7 @@ public class OOXMLParser extends AbstractOfficeParser {
 
     protected static final Set<MediaType> SUPPORTED_TYPES =
             Collections.unmodifiableSet(new HashSet<MediaType>(Arrays.asList(
-                    MediaType.application("x-tika-ooxml"),
+                    //MediaType.application("x-tika-ooxml"),
                     MediaType.application("vnd.openxmlformats-officedocument.presentationml.presentation"),
                     MediaType.application("vnd.ms-powerpoint.presentation.macroenabled.12"),
                     MediaType.application("vnd.openxmlformats-officedocument.presentationml.template"),

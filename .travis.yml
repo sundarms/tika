@@ -16,7 +16,7 @@ install:
 - mvn install -pl tika-core -am -Dgpg.skip=true
 - mvn install -pl tika-parsers -am -Dgpg.skip=true
 before_script: 
-script: mvn test -pl tika-parsers -am -P !build-extras -B
+script: mvn test -P !build-extras -B
 cache:
   directories:
   - "~/.m2/repository"
