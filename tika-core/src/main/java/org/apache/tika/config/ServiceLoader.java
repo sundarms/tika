@@ -30,6 +30,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.apache.tika.detect.EncodingDetector;
+import org.apache.tika.parser.html.HtmlEncodingDetector;
+import org.apache.tika.parser.html.HtmlEncodingDetectorMetadataCharset;
+import org.apache.tika.parser.txt.Icu4jEncodingDetector;
+import org.apache.tika.parser.txt.UniversalEncodingDetector;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
@@ -240,10 +246,19 @@ public class ServiceLoader {
      * @param iface service provider interface
      * @return available service providers
      */
-    public <T> List<T> loadServiceProviders(Class<T> iface) {
+    @SuppressWarnings("unchecked")
+	public <T> List<T> loadServiceProviders(Class<T> iface) {
         List<T> providers = new ArrayList<T>();
-        providers.addAll(loadDynamicServiceProviders(iface));
-        providers.addAll(loadStaticServiceProviders(iface));
+        
+		if (iface.isAssignableFrom(EncodingDetector.class)) {
+			providers.add((T) new HtmlEncodingDetectorMetadataCharset());
+			providers.add((T) new HtmlEncodingDetector());
+			providers.add((T) new UniversalEncodingDetector());
+			providers.add((T) new Icu4jEncodingDetector());
+		} else {
+			providers.addAll(loadDynamicServiceProviders(iface));
+			providers.addAll(loadStaticServiceProviders(iface));
+		}
         return providers;
     }
 
