@@ -30,10 +30,12 @@ import java.util.Date;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.tika.TikaTest;
+import org.apache.tika.exception.TikaErrorException;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.Parser;
+import org.junit.Assert;
 import org.junit.Test;
 
 public class MockParserTest extends TikaTest {
@@ -131,7 +133,7 @@ public class MockParserTest extends TikaTest {
     @Test
     public void testFakeOOM() throws Exception {
         Metadata m = new Metadata();
-        assertThrowable("fake_oom.xml", m, OutOfMemoryError.class, "not another oom");
+        assertError("fake_oom.xml", m, TikaErrorException.class);
         assertMockParser(m);
     }
 
@@ -141,7 +143,7 @@ public class MockParserTest extends TikaTest {
         //i.e. by creating child process and setting different -Xmx or
         //memory profiling.
         Metadata m = new Metadata();
-        assertThrowable("real_oom.xml", m, OutOfMemoryError.class, "Java heap space");
+        assertError("real_oom.xml", m, TikaErrorException.class);
         assertMockParser(m);
     }
 
@@ -229,6 +231,19 @@ public class MockParserTest extends TikaTest {
             if (message != null) {
                 assertEquals(message, t.getMessage());
             }
+        }
+    }
+    
+    private void assertError(String path, Metadata m, Class<? extends Throwable> expected) {
+        try {
+            getXML(path, m);
+        } catch (Throwable t) {
+            //if this is a throwable wrapped in a TikaException, use the cause
+            if (t instanceof TikaException && t.getCause() != null) {
+                t = t.getCause();
+            }
+            Assert.assertTrue(t instanceof TikaErrorException);
+            Assert.assertNotNull(t.getMessage());
         }
     }
 
