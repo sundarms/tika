@@ -214,13 +214,13 @@ public class PDFPureJavaParser extends AbstractParser {
         }
         XMPSchemaDublinCore dcSchema = null;
 
-        if (xmp != null) {
+        /*if (xmp != null) {
             try {
                 dcSchema = xmp.getDublinCoreSchema();
             } catch (IOException e) {}
 
             JempboxExtractor.extractXMPMM(xmp, metadata);
-        }
+        }*/
 
         PDDocumentInformation info = document.getDocumentInformation();
         metadata.set(PagedText.N_PAGES, document.getNumberOfPages());
