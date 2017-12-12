@@ -44,7 +44,6 @@ import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.TextPosition;
-import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.extractor.EmbeddedDocumentUtil;
 import org.apache.tika.io.TikaInputStream;
@@ -297,7 +296,7 @@ class PDF2XHTML extends AbstractPDF2XHTML {
                     org.apache.pdfbox.io.IOUtils.closeQuietly(data);
                 } else {
                     // for CMYK and other "unusual" colorspaces, the JPEG will be converted
-                    ImageIOUtil.writeImage(image, suffix, out);
+                    //ImageIOUtil.writeImage(image, suffix, out);
                 }
             } else if ("jp2".equals(suffix) || "jpx".equals(suffix)) {
                 InputStream data = pdImage.createInputStream(JP2);
@@ -308,7 +307,7 @@ class PDF2XHTML extends AbstractPDF2XHTML {
                 org.apache.pdfbox.io.IOUtils.copy(data, out);
                 org.apache.pdfbox.io.IOUtils.closeQuietly(data);
             } else{
-                ImageIOUtil.writeImage(image, suffix, out);
+                //ImageIOUtil.writeImage(image, suffix, out);
             }
         }
         out.flush();

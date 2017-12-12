@@ -85,11 +85,6 @@
       <version>${pdfbox.version}</version>
     </dependency>
     <dependency>
-      <groupId>com.github.lafa.pdfbox</groupId>
-      <artifactId>pdfbox-tools</artifactId>
-      <version>${pdfbox.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.apache.pdfbox</groupId>
       <artifactId>jempbox</artifactId>
       <version>${jempbox.version}</version>
