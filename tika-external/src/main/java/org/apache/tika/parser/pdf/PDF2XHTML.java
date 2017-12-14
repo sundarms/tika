@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.pdfbox.contentstream.PdfTimeoutException;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSStream;
@@ -43,7 +44,6 @@ import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.TextPosition;
-import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.extractor.EmbeddedDocumentUtil;
 import org.apache.tika.io.TikaInputStream;
@@ -101,11 +101,12 @@ class PDF2XHTML extends AbstractPDF2XHTML {
      * @param metadata PDF metadata
      * @throws SAXException  if the content handler fails to process SAX events
      * @throws TikaException if there was an exception outside of per page processing
+     * @throws PdfTimeoutException when pdf timeout
      */
     public static void process(
             PDDocument document, ContentHandler handler, ParseContext context, Metadata metadata,
             PDFParserConfig config)
-            throws SAXException, TikaException {
+            throws SAXException, TikaException, PdfTimeoutException {
         PDF2XHTML pdf2XHTML = null;
         try {
             // Extract text using a dummy Writer as we override the
@@ -142,7 +143,7 @@ class PDF2XHTML extends AbstractPDF2XHTML {
 
 
     @Override
-    public void processPage(PDPage page) throws IOException {
+    public void processPage(PDPage page) throws IOException, PdfTimeoutException {
         try {
             super.processPage(page);
         } catch (IOException e) {
@@ -295,7 +296,7 @@ class PDF2XHTML extends AbstractPDF2XHTML {
                     org.apache.pdfbox.io.IOUtils.closeQuietly(data);
                 } else {
                     // for CMYK and other "unusual" colorspaces, the JPEG will be converted
-                    ImageIOUtil.writeImage(image, suffix, out);
+                    //ImageIOUtil.writeImage(image, suffix, out);
                 }
             } else if ("jp2".equals(suffix) || "jpx".equals(suffix)) {
                 InputStream data = pdImage.createInputStream(JP2);
@@ -306,7 +307,7 @@ class PDF2XHTML extends AbstractPDF2XHTML {
                 org.apache.pdfbox.io.IOUtils.copy(data, out);
                 org.apache.pdfbox.io.IOUtils.closeQuietly(data);
             } else{
-                ImageIOUtil.writeImage(image, suffix, out);
+                //ImageIOUtil.writeImage(image, suffix, out);
             }
         }
         out.flush();

@@ -36,7 +36,6 @@ import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
-
 import org.apache.commons.io.IOExceptionWithCause;
 import org.apache.commons.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -76,7 +75,6 @@ import org.apache.pdfbox.pdmodel.interactive.form.PDSignatureField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDXFAResource;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.extractor.EmbeddedDocumentExtractor;
 import org.apache.tika.extractor.EmbeddedDocumentUtil;

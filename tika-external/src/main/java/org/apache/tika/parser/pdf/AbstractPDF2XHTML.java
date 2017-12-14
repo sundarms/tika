@@ -76,7 +76,6 @@ import org.apache.pdfbox.pdmodel.interactive.form.PDSignatureField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDXFAResource;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.extractor.EmbeddedDocumentExtractor;
 import org.apache.tika.extractor.EmbeddedDocumentUtil;
@@ -328,8 +327,8 @@ class AbstractPDF2XHTML extends PDFTextStripper {
             Path tmpFile = tmp.createTempFile();
             try (OutputStream os = Files.newOutputStream(tmpFile)) {
                 //TODO: get output format from TesseractConfig
-                ImageIOUtil.writeImage(image, config.getOcrImageFormatName(),
-                        os, config.getOcrDPI());
+                /*ImageIOUtil.writeImage(image, config.getOcrImageFormatName(),
+                        os, config.getOcrDPI());*/
             }
             try (InputStream is = TikaInputStream.get(tmpFile)) {
                 tesseractOCRParser.parseInline(is, xhtml, tesseractConfig);
