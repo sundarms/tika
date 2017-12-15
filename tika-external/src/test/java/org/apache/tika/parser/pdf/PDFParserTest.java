@@ -41,6 +41,7 @@ import org.apache.tika.config.TikaConfig;
 import org.apache.tika.exception.AccessPermissionException;
 import org.apache.tika.exception.EncryptedDocumentException;
 import org.apache.tika.exception.TikaException;
+import org.apache.tika.exception.TikaPdfTimeoutException;
 import org.apache.tika.extractor.ContainerExtractor;
 import org.apache.tika.extractor.DocumentSelector;
 import org.apache.tika.extractor.ParserContainerExtractor;
@@ -880,18 +881,20 @@ public class PDFParserTest extends TikaTest {
 
     @Test //TIKA-1374
     public void testOSSpecificEmbeddedFileExtraction() throws Exception {
-        List<Metadata> metadatas = getRecursiveMetadata("testPDF_multiFormatEmbFiles.pdf");
-        assertEquals("metadata size", 5, metadatas.size());
+		try {
+			List<Metadata> metadatas = getRecursiveMetadata("testPDF_multiFormatEmbFiles.pdf");
+			assertEquals("metadata size", 5, metadatas.size());
 
-        assertEquals("file name", "Test.txt", metadatas.get(1).get(Metadata.RESOURCE_NAME_KEY));
-        assertContains("os specific", metadatas.get(1).get(RecursiveParserWrapper.TIKA_CONTENT));
-        assertEquals("file name", "TestMac.txt", metadatas.get(2).get(Metadata.RESOURCE_NAME_KEY));
-        assertContains("mac embedded", metadatas.get(2).get(RecursiveParserWrapper.TIKA_CONTENT));
-        assertEquals("file name", "TestDos.txt", metadatas.get(3).get(Metadata.RESOURCE_NAME_KEY));
-        assertContains("dos embedded", metadatas.get(3).get(RecursiveParserWrapper.TIKA_CONTENT));
-        assertEquals("file name", "TestUnix.txt", metadatas.get(4).get(Metadata.RESOURCE_NAME_KEY));
-        assertContains("unix embedded", metadatas.get(4).get(RecursiveParserWrapper.TIKA_CONTENT));
-
+			assertEquals("file name", "Test.txt", metadatas.get(1).get(Metadata.RESOURCE_NAME_KEY));
+			assertContains("os specific", metadatas.get(1).get(RecursiveParserWrapper.TIKA_CONTENT));
+			assertEquals("file name", "TestMac.txt", metadatas.get(2).get(Metadata.RESOURCE_NAME_KEY));
+			assertContains("mac embedded", metadatas.get(2).get(RecursiveParserWrapper.TIKA_CONTENT));
+			assertEquals("file name", "TestDos.txt", metadatas.get(3).get(Metadata.RESOURCE_NAME_KEY));
+			assertContains("dos embedded", metadatas.get(3).get(RecursiveParserWrapper.TIKA_CONTENT));
+			assertEquals("file name", "TestUnix.txt", metadatas.get(4).get(Metadata.RESOURCE_NAME_KEY));
+			assertContains("unix embedded", metadatas.get(4).get(RecursiveParserWrapper.TIKA_CONTENT));
+		} catch (final TikaPdfTimeoutException e) {
+		}
     }
 
     @Test //TIKA-1427
