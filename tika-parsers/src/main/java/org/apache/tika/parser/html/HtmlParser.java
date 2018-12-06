@@ -32,13 +32,14 @@ import org.apache.tika.metadata.Metadata;
 import org.apache.tika.mime.MediaType;
 import org.apache.tika.parser.AbstractParser;
 import org.apache.tika.parser.ParseContext;
-import org.ccil.cowan.tagsoup.HTMLSchema;
-import org.ccil.cowan.tagsoup.Schema;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
+import com.lafaspot.tagchowder.Schema;
+import com.lafaspot.tagchowder.templates.HTMLSchema;
+
 /**
- * HTML parser. Uses TagSoup to turn the input document to HTML SAX events,
+ * HTML parser. Uses TagChowder to turn the input document to HTML SAX events,
  * and post-processes the events to produce XHTML and metadata expected by
  * Tika clients.
  */
@@ -69,10 +70,12 @@ public class HtmlParser extends AbstractParser {
     private static final Schema HTML_SCHEMA = new HTMLSchema();
 
 
+    @Override
     public Set<MediaType> getSupportedTypes(ParseContext context) {
         return SUPPORTED_TYPES;
     }
 
+    @Override
     public void parse(
             InputStream stream, ContentHandler handler,
             Metadata metadata, ParseContext context)
@@ -103,18 +106,18 @@ public class HtmlParser extends AbstractParser {
                     context.get(HtmlMapper.class, new HtmlParserMapper());
 
             // Parse the HTML document
-            org.ccil.cowan.tagsoup.Parser parser =
-                    new org.ccil.cowan.tagsoup.Parser();
+            com.lafaspot.tagchowder.Parser parser =
+                    new com.lafaspot.tagchowder.Parser();
 
             // Use schema from context or default
             Schema schema = context.get(Schema.class, HTML_SCHEMA);
 
             // TIKA-528: Reuse share schema to avoid heavy instantiation
             parser.setProperty(
-                    org.ccil.cowan.tagsoup.Parser.schemaProperty, schema);
+                    com.lafaspot.tagchowder.Parser.SCHEMA_PROPERTY, schema);
             // TIKA-599: Shared schema is thread-safe only if bogons are ignored
             parser.setFeature(
-                    org.ccil.cowan.tagsoup.Parser.ignoreBogonsFeature, true);
+                    com.lafaspot.tagchowder.Parser.IGNORE_BOGONS_FEATURE, true);
 
             parser.setContentHandler(new XHTMLDowngradeHandler(
                     new HtmlHandler(mapper, handler, metadata)));
@@ -140,6 +143,7 @@ public class HtmlParser extends AbstractParser {
      * @deprecated Use the {@link HtmlMapper} mechanism to customize
      * the HTML mapping. This method will be removed in Tika 1.0.
      */
+    @Deprecated
     protected String mapSafeElement(String name) {
         return DefaultHtmlMapper.INSTANCE.mapSafeElement(name);
     }
@@ -156,6 +160,7 @@ public class HtmlParser extends AbstractParser {
      * @deprecated Use the {@link HtmlMapper} mechanism to customize
      * the HTML mapping. This method will be removed in Tika 1.0.
      */
+    @Deprecated
     protected boolean isDiscardElement(String name) {
         return DefaultHtmlMapper.INSTANCE.isDiscardElement(name);
     }
@@ -164,6 +169,7 @@ public class HtmlParser extends AbstractParser {
      * @deprecated Use the {@link HtmlMapper} mechanism to customize
      * the HTML mapping. This method will be removed in Tika 1.0.
      */
+    @Deprecated
     public String mapSafeAttribute(String elementName, String attributeName) {
         return DefaultHtmlMapper.INSTANCE.mapSafeAttribute(elementName, attributeName);
     }
@@ -177,15 +183,19 @@ public class HtmlParser extends AbstractParser {
      * @deprecated Use the {@link HtmlMapper} mechanism to customize
      * the HTML mapping. This class will be removed in Tika 1.0.
      */
+    @Deprecated
     private class HtmlParserMapper implements HtmlMapper {
+        @Override
         public String mapSafeElement(String name) {
             return HtmlParser.this.mapSafeElement(name);
         }
 
+        @Override
         public boolean isDiscardElement(String name) {
             return HtmlParser.this.isDiscardElement(name);
         }
 
+        @Override
         public String mapSafeAttribute(String elementName, String attributeName) {
             return HtmlParser.this.mapSafeAttribute(elementName, attributeName);
         }

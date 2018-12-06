@@ -72,8 +72,8 @@ public class MatchingContentHandler extends ContentHandlerDecorator {
         if (matcher.matchesElement()) {
             super.endElement(uri, localName, name);
         }
-        // Sometimes tagsoup returns double end tags, so the stack might
-        // be empty! TODO: Remove this when the tagsoup problem is fixed.
+        // Sometimes chowder returns double end tags, so the stack might
+        // be empty! TODO: Remove this when the tagchowder problem is fixed.
         if (!matchers.isEmpty()) {
             matcher = matchers.removeFirst();
         }
