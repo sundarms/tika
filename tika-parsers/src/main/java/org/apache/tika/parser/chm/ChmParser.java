@@ -100,7 +100,7 @@ public class ChmParser extends AbstractParser {
         } catch (SAXException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
-            // Pushback overflow from tagsoup
+            // Pushback overflow from tagchowder
         }
     }
     

@@ -67,8 +67,6 @@ import org.apache.tika.parser.ParseContext;
 import org.apache.tika.sax.BodyContentHandler;
 import org.apache.tika.sax.LinkContentHandler;
 import org.apache.tika.sax.TeeContentHandler;
-import org.ccil.cowan.tagsoup.HTMLSchema;
-import org.ccil.cowan.tagsoup.Schema;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.Attributes;
@@ -76,6 +74,9 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import com.lafaspot.tagchowder.Schema;
+import com.lafaspot.tagchowder.templates.HTMLSchema;
 
 public class HtmlParserTest extends TikaTest {
 
@@ -809,7 +810,7 @@ public class HtmlParserTest extends TikaTest {
     }
 
     /**
-     * Test case for TIKA-434 - Pushback buffer overflow in TagSoup
+     * Test case for TIKA-434 - Pushback buffer overflow in TagChowder
      */
     @Test
     public void testPushback() throws IOException, TikaException {
