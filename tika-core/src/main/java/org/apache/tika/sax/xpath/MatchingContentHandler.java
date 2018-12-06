@@ -39,6 +39,7 @@ public class MatchingContentHandler extends ContentHandlerDecorator {
         this.matcher = matcher;
     }
 
+    @Override
     public void startElement(
             String uri, String localName, String name, Attributes attributes)
             throws SAXException {
@@ -67,18 +68,20 @@ public class MatchingContentHandler extends ContentHandlerDecorator {
         }
     }
 
+    @Override
     public void endElement(String uri, String localName, String name)
             throws SAXException {
         if (matcher.matchesElement()) {
             super.endElement(uri, localName, name);
         }
-        // Sometimes chowder returns double end tags, so the stack might
+        // Sometimes tagchowder returns double end tags, so the stack might
         // be empty! TODO: Remove this when the tagchowder problem is fixed.
         if (!matchers.isEmpty()) {
             matcher = matchers.removeFirst();
         }
     }
 
+    @Override
     public void characters(char[] ch, int start, int length)
             throws SAXException {
         if (matcher.matchesText()) {
@@ -86,6 +89,7 @@ public class MatchingContentHandler extends ContentHandlerDecorator {
         }
     }
 
+    @Override
     public void ignorableWhitespace(char[] ch, int start, int length)
             throws SAXException {
         if (matcher.matchesText()) {
@@ -93,10 +97,12 @@ public class MatchingContentHandler extends ContentHandlerDecorator {
         }
     }
 
+    @Override
     public void processingInstruction(String target, String data) {
         // TODO: Support for matching processing instructions
     }
 
+    @Override
     public void skippedEntity(String name) throws SAXException {
         // TODO: Can skipped entities refer to more than text?
         if (matcher.matchesText()) {
