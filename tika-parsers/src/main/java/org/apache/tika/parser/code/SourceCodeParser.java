@@ -43,8 +43,8 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.lafaspot.tagchowder.Schema;
-import com.lafaspot.tagchowder.templates.HTMLSchema;
+import com.yahoo.tagchowder.Schema;
+import com.yahoo.tagchowder.templates.HTMLSchema;
 import com.uwyn.jhighlight.renderer.Renderer;
 import com.uwyn.jhighlight.renderer.XhtmlRendererFactory;
 
@@ -114,8 +114,8 @@ public class SourceCodeParser implements Parser {
 
                 Schema schema = context.get(Schema.class, HTML_SCHEMA);
 
-                com.lafaspot.tagchowder.Parser parser = new com.lafaspot.tagchowder.Parser();
-                parser.setProperty(com.lafaspot.tagchowder.Parser.SCHEMA_PROPERTY, schema);
+                com.yahoo.tagchowder.Parser parser = new com.yahoo.tagchowder.Parser();
+                parser.setProperty(com.yahoo.tagchowder.Parser.SCHEMA_PROPERTY, schema);
                 parser.setContentHandler(handler);
                 parser.parse(new InputSource(new StringReader(codeAsHtml)));
             }

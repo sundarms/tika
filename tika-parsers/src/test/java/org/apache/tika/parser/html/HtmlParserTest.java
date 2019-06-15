@@ -75,8 +75,8 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.lafaspot.tagchowder.Schema;
-import com.lafaspot.tagchowder.templates.HTMLSchema;
+import com.yahoo.tagchowder.Schema;
+import com.yahoo.tagchowder.templates.HTMLSchema;
 
 public class HtmlParserTest extends TikaTest {
 

@@ -35,8 +35,8 @@ import org.apache.tika.parser.ParseContext;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 
-import com.lafaspot.tagchowder.Schema;
-import com.lafaspot.tagchowder.templates.HTMLSchema;
+import com.yahoo.tagchowder.Schema;
+import com.yahoo.tagchowder.templates.HTMLSchema;
 
 /**
  * HTML parser. Uses TagChowder to turn the input document to HTML SAX events,
@@ -106,18 +106,17 @@ public class HtmlParser extends AbstractParser {
                     context.get(HtmlMapper.class, new HtmlParserMapper());
 
             // Parse the HTML document
-            com.lafaspot.tagchowder.Parser parser =
-                    new com.lafaspot.tagchowder.Parser();
+            com.yahoo.tagchowder.Parser parser = new com.yahoo.tagchowder.Parser();
 
             // Use schema from context or default
             Schema schema = context.get(Schema.class, HTML_SCHEMA);
 
             // TIKA-528: Reuse share schema to avoid heavy instantiation
             parser.setProperty(
-                    com.lafaspot.tagchowder.Parser.SCHEMA_PROPERTY, schema);
+                    com.yahoo.tagchowder.Parser.SCHEMA_PROPERTY, schema);
             // TIKA-599: Shared schema is thread-safe only if bogons are ignored
             parser.setFeature(
-                    com.lafaspot.tagchowder.Parser.IGNORE_BOGONS_FEATURE, true);
+                    com.yahoo.tagchowder.Parser.IGNORE_BOGONS_FEATURE, true);
 
             parser.setContentHandler(new XHTMLDowngradeHandler(
                     new HtmlHandler(mapper, handler, metadata)));
