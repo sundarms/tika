@@ -582,14 +582,6 @@
 	</distributionManagement>
     <repositories>
         <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>jcenter</id>
-            <name>bintray</name>
-            <url>https://jcenter.bintray.com</url>
-        </repository>
-        <repository>
           <snapshots>
             <enabled>false</enabled>
           </snapshots>
