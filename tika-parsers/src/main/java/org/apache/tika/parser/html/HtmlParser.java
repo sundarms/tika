@@ -67,7 +67,7 @@ public class HtmlParser extends AbstractParser {
     /**
      * HTML schema singleton used to amortise the heavy instantiation time.
      */
-    private static final Schema HTML_SCHEMA = new HTMLSchema();
+    private static final Schema HTML_SCHEMA = new HTMLSchema(true);
 
 
     @Override
