@@ -958,7 +958,7 @@ public class HtmlParserTest extends TikaTest {
         assertEquals("", linkContentHandler.getLinks().get(0).getText());
 
         // We'll change the schema to allow tables inside anchors!
-        Schema schema = new HTMLSchema();
+        Schema schema = new HTMLSchema(true);
         schema.elementType("a", HTMLSchema.M_ANY, 65535, 0);
 
         ParseContext parseContext = new ParseContext();
