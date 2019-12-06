@@ -74,7 +74,7 @@ public class SourceCodeParser implements Parser {
     private static final ServiceLoader LOADER = new ServiceLoader(SourceCodeParser.class.getClassLoader());
 
     //Parse the HTML document
-    private static final Schema HTML_SCHEMA = new HTMLSchema();
+    private static final Schema HTML_SCHEMA = new HTMLSchema(true);
 
     @Override
     public Set<MediaType> getSupportedTypes(ParseContext context) {
