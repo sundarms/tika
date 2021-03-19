@@ -33,7 +33,7 @@
 
   <groupId>com.github.lafa.tikaNoExternal</groupId>
   <artifactId>tika-parent</artifactId>
-  <version>1.0.17</version>
+  <version>1.0.18</version>
   <packaging>pom</packaging>
 
   <name>Apache Tika parent</name>
@@ -580,14 +580,4 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-    <repositories>
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>jcenter</id>
-            <name>bintray</name>
-            <url>https://jcenter.bintray.com</url>
-        </repository>
-    </repositories>
 </project>
