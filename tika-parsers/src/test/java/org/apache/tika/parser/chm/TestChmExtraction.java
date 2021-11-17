@@ -25,6 +25,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +37,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
@@ -52,6 +56,7 @@ public class TestChmExtraction {
     private final List<String> files = Arrays.asList(
             "/test-documents/testChm.chm",
             "/test-documents/testChm2.chm",
+            "/test-documents/text_ext_file",
             "/test-documents/testChm3.chm");
 
     @Test
@@ -89,6 +94,34 @@ public class TestChmExtraction {
                 testExtractChmEntry(stream);
             }
         }
+    }
+
+    private byte[] readResource(String name) {
+        try {
+            try (InputStream stream = TestParameters.class.getResourceAsStream(name)) {
+                return IOUtils.toByteArray(stream);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void testExtractChmEntriesWithCycleBlock() throws TikaException, IOException, SAXException {
+//        String fileName = "/test-documents/text_ext_file";
+//        InputStream stream = TestParameters.class.getResourceAsStream(fileName);
+//        byte[] d = IOUtils.toByteArray(stream);
+
+        byte[] bytes =  Files.readAllBytes(Paths.get("/Users/sundarms/text_ext_file"));
+//        String s = new String(bytes, StandardCharsets.UTF_8);
+//        final InputStream istream = new ByteArrayInputStream(s.getBytes(StandardCharsets.UTF_8));
+        ChmExtractor chmExtractor = new ChmExtractor(new ByteArrayInputStream(bytes));
+
+//
+//        try (InputStream stream = TestChmExtraction.class.getResourceAsStream(fileName)) {
+//            testExtractChmEntry(stream);
+//        }
+
     }
     
     protected boolean findZero(byte[] textData) {

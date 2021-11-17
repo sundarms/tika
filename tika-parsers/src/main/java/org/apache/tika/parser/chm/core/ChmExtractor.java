@@ -177,7 +177,7 @@ public class ChmExtractor {
             int indexOfResetData = ChmCommons.indexOfResetTableBlock(getData(),
                     ChmConstants.LZXC.getBytes(UTF_8));
             byte[] dir_chunk = null;
-            if (indexOfResetData > 0)
+            if (indexOfResetData > 0 && indexOfControlData > 0)
                 dir_chunk = ChmCommons.copyOfRange( getData(), indexOfResetData, indexOfResetData  
                         + getChmDirList().getDirectoryListingEntryList().get(indexOfControlData).getLength());
             // dir_chunk = Arrays.copyOfRange(getData(), indexOfResetData,
@@ -215,7 +215,7 @@ public class ChmExtractor {
 
             setLzxBlocksCache(new ArrayList<ChmLzxBlock>());
 
-        } catch (IOException e) {
+        } catch (IndexOutOfBoundsException | IOException e) {
             e.printStackTrace();
         }
     }
